@@ -15,15 +15,23 @@ import javax.validation.constraints.NotEmpty;
 import lombok.Data; 
 @Entity
 @Data
-@Table (name="objeto1")
-public class Objeto1 implements Serializable{
+@Table (name="empleados")
+public class Empleado implements Serializable{
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
-    private Long idObjeto1;
-
-    public Objeto1() {
+    private Long id;
+    private String nombre;
+    private String cargo;
+    private int hotel_id;
+    
+    public Empleado() {
     }
     
+    public Empleado(String nombre, String cargo, int hotel_id) {
+        this.nombre = nombre;
+        this.cargo = cargo;
+        this.hotel_id = hotel_id;
+    }
     
 }

@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+    <head th:replace="~{layout/template :: head}">
+        <title>Título</title>
+    </head>
+    <body>
+        <header th:replace="~{layout/template :: header}"/>
+        
+        <section th:replace="/empleado/fragmentos :: botonesAgregar"/>
+        <section th:replace="/empleado/fragmentos :: agregarEmpleado"/>
+        
+        <section th:replace="/empleado/fragmentos :: listadoEmpleados"/>
+        
+        <footer th:replace="~{layout/template :: footer}"/>      
+      
+    </body>
+</html>
