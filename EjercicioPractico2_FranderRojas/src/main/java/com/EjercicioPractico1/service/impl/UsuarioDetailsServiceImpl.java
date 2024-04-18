@@ -39,6 +39,7 @@ public class UsuarioDetailsServiceImpl implements UsuarioDetailsService, UserDet
     //Si está acá es porque existe el usuario... sacamos los roles que tiene
     var roles = new ArrayList<GrantedAuthority>();
     for (Rol rol: usuario.getRoles()) { //Se sacan los roles
+        System.out.println (rol.getNombre());
         roles.add(new SimpleGrantedAuthority( rol.getNombre()));
     }
     

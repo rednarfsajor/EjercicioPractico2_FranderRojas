@@ -4,11 +4,11 @@
  */
 package com.EjercicioPractico1.dao;
 
-import com.EjercicioPractico1.domain.Objeto2;
+import com.EjercicioPractico1.domain.Reserva;
 import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface Objeto2Dao extends JpaRepository <Objeto2,Long>{
+public interface ReservaDao extends JpaRepository <Reserva,Long>{
     
-    //public List<Objeto2> findByTituloContaining(String titulo);
+    //public List<Reserva> findByTituloContaining(String titulo);
 }

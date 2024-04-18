@@ -4,22 +4,22 @@
  */
 package com.EjercicioPractico1.service;
 
-import com.EjercicioPractico1.domain.Objeto2;
+import com.EjercicioPractico1.domain.Reserva;
 import java.util.List;
 
     
 
-public interface Objeto2Service {
-    public List<Objeto2> getObjetos2();
+public interface ReservaService {
+    public List<Reserva> getReservas();
     
     
-    public Objeto2 getObjeto2(Objeto2 objeto2);
+    public Reserva getReserva(Reserva reserva);
     
    
-    public void save(Objeto2 objeto2);
+    public void save(Reserva reserva);
     
     
-    public void delete(Objeto2 objeto2);
+    public void delete(Reserva reserva);
     //Metodos de búsqueda
-    //public List<Objeto2> findByTituloContaining(String titulo);
+    //public List<Reserva> findByTituloContaining(String titulo);
 }

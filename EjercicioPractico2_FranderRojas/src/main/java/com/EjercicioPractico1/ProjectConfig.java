@@ -46,12 +46,12 @@ public class ProjectConfig implements WebMvcConfigurer {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests((request) -> request
-                .requestMatchers("/**")
+                .requestMatchers("/**","/index","/errores/**","/js/**","/webjars/**")
                         .permitAll()
                 .requestMatchers(
-                        "/**"
+                        "/hotel/**","/empleado/**"
                 ).hasRole("ADMINISTRADOR")
-                .requestMatchers("/**")
+                .requestMatchers("/reserva/registrar")
                 .hasRole("CLIENTE")
                 )
                 .formLogin((form) -> form
