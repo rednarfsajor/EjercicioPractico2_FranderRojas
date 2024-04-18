@@ -3,20 +3,20 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Interface.java to edit this template
  */
 package com.EjercicioPractico1.service;
-import com.EjercicioPractico1.domain.Libro;
+import com.EjercicioPractico1.domain.Hotel;
 import java.util.List;
-public interface LibroService {
-    public List<Libro> getLibros();
+public interface HotelService {
+    public List<Hotel> getHoteles();
     
     // Se obtiene un Categoria, a partir del id de un categoria
-    public Libro getLibro(Libro libro);
+    public Hotel getHotel(Hotel hotel);
     
     // Se inserta un nuevo categoria si el id del categoria esta vacío
     // Se actualiza un categoria si el id del categoria NO esta vacío
-    public void save(Libro libro);
+    public void save(Hotel hotel);
     
     // Se elimina el categoria que tiene el id pasado por parámetro
-    public void delete(Libro libro);
+    public void delete(Hotel hotel);
     
-    public List<Libro> findByTituloContaining(String titulo);
+    //public List<Hotel> findByTituloContaining(String titulo);
 }

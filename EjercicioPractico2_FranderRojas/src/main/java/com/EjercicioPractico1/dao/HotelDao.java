@@ -4,12 +4,12 @@
  */
 package com.EjercicioPractico1.dao;
 
-import com.EjercicioPractico1.domain.Libro;
+import com.EjercicioPractico1.domain.Hotel;
 import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface LibroDao extends JpaRepository <Libro,Long>{
+public interface HotelDao extends JpaRepository <Hotel,Long>{
     
-    public List<Libro> findByTituloContaining(String titulo);
+    //public List<Hotel> findByNombreContaining(String nombre);
 }
 
