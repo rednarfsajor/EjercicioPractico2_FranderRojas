@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+    <head th:replace="~{layout/template :: head}">
+        <title>Título</title>
+    </head>
+    <body>
+        <!-- 1 Sección para crear el boton de agregar... llamará a una ventana modal-->
+        <section th:fragment="botonesAgregar" class="py-4 mb-4 bg-light">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-3">   
+                        <button 
+                            type="button" 
+                            class="btn btn-primary btn-block" 
+                            data-bs-toggle="modal" 
+                            data-bs-target="#agregarLibro">
+                            <i class="fas fa-plus"></i> Agregar Libro
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2 Fragmento para agregar libro, es la ventana modal -->
+        <section th:fragment="agregarLibro">
+            <div id="agregarLibro" 
+                 class="modal fade" 
+                 tabindex="-1" 
+                 aria-labelledby="exampleModalLabel" 
+                 aria-hidden="true">
+                <div class="modal-dialog modal-md">
+                    <div class="modal-content">
+                        <div class="modal-header bg-info text-white">
+                            <h5 class="modal-title">Agregar Libro</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div> 
+                        <form th:action="@{/libro/guardar}" th:object="${libro}"
+                              method="POST" class="was-validated" enctype="multipart/form-data">
+                            <div class="modal-body">
+                                <div class="mb-3">
+                                    <label for="titulo">Título</label>
+                                    <input type="text" class="form-control" name="titulo" required="true"/>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="autor">Autor</label>
+                                    <input type="text" class="form-control" name="autor" required="true"/>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="precio">Precio</label>
+                                    <input type="number" class="form-control" name="precio" required="true"/>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="categoira">Categoria</label>
+                                    <input type="text" class="form-control" name="categoria" required="false"/>
+                                </div>
+                  
+                            </div>
+                            <div class="modal-footer">
+                                <button class="btn btn-primary" type="submit">Guardar</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3 Sección principal para mostrar la informaccion de la entidad libro -->
+        <section th:fragment="listadoLibros" id="libros">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-9">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4>Listado de Libros</h4>
+                            </div>
+                            <div th:if="${libros != null and !libros.empty}">
+                                <table class="table table-sm table-dark">
+                                    <thead class="table-dark">
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Autor</th>
+                                            <th>Título</th>
+                                            <th>Categoría</th>
+                                            <th>Precio</th>
+                                            <th></th></tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr class="table-danger" th:each="book, contador : ${libros}">
+                                            <td>[[${book.id}]]</td>
+                                            <td>[[${book.autor}]]</td>
+                                            <td>[[${book.titulo}]]</td>
+                                            <td>[[${book.categoria}]]</td>
+                                            <td>[[${book.precio}]]</td>
+                                            <td><a th:href="@{/libro/eliminar/}+${book.id}"
+                                                   class="btn btn-danger">
+                                                    <i class="fas fa-trash"></i> Eliminar </a>
+                                            <a th:href="@{/libro/modifica/}+${book.id}"
+                                               data-bs-target="#modificarLibro"
+                                                   class="btn btn-success">
+                                            <i class="fas fa-pencil"></i>Modificar</a></td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </section>
+
+        <!-- 4 Fragmento que se utiliza en la página modifca.html -->
+        <section th:fragment="editarLibro">
+            <div class="row">
+                <div class="col-md-2"></div>
+                <div class="col-md-8">
+                    <form method="POST"
+                          th:action="@{/libro/guardar}" 
+                          th:object="${book}"
+                          class="was-validated"                          
+                          enctype="multipart/form-data">
+                        <input type="hidden" name="id" th:field="*{id}"/>
+                        <input type="hidden" name="autor" th:field="*{autor}"/>
+                        <input type="hidden" name="titulo" th:field="*{titulo}"/>
+                        <input type="hidden" name="categoria" th:field="*{categoria}"/>
+                        <input type="hidden" name="precio" th:field="*{precio}"/>
+                        <section th:replace="~{libro/fragmentos :: botonesEditar}"/>
+                        <div id=details>
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="card">
+                                            <div class="card-header">
+                                                <h4>Modificar Libro</h4>
+                                            </div>
+                                            <div class="card-body">
+                                                <div class="mb-3">
+                                                    <label for="autor">Autor</label>
+                                                    <input type="text" class="form-control" 
+                                                           name="autor" th:field="*{autor}"
+                                                           required="true">
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="titulo">Titulo</label>
+                                                    <input type="text" class="form-control" 
+                                                           name="titulo" th:field="*{titulo}"
+                                                           required="true">
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="categoria">Categoria</label>
+                                                    <input type="text" class="form-control" 
+                                                           name="cagetoria" th:field="*{categoria}"
+                                                           required="true">
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="precio">Precio</label>
+                                                    <input type="text" class="form-control" 
+                                                           name="precio" th:field="*{precio}"
+                                                           required="true">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5 Fragmento que se utiliza en el fragmento anterior -->
+        <section th:fragment="botonesEditar">
+            <div class="container py-4 mb-4 bg-light">
+                <div class="row">
+                    <div class="col-md-4 d-grid">
+                        <a th:href="@{/libro/listado}" class="btn btn-primary">
+                            <i class="fas fa-arrow-left"></i>Regresar
+                        </a>
+                    </div>
+                    <div class="col-md-4 d-grid">                                
+                        <a th:href="@{/libro/eliminar/}+${libro.id}"
+                           class="btn btn-danger">
+                            <i class="fas fa-trash"></i>Eliminar
+                        </a>
+                    </div>
+                    <div class="col-md-4 d-grid">
+                        <button type="submit" class="btn btn-success">
+                            <i class="fas fa-check"></i>Guardar
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section th:fragment="filtros" class="bg-light">
+            <div class="row py-2">
+                <div class="col-md-1"></div>
+                <div class="col-md-3">
+                    <form method="POST" th:action="@{/libro/query1}" 
+                          class="was-validated">
+                        <div class="card">                            
+                            <div class="card-body">
+                                <div class="mb-3">
+                                    <label for="titulo">Titulo</label>
+                                    <input type="text" class="form-control" 
+                                           th:value="${titulo}"
+                                           th:name="titulo" required="true"/>
+                                </div>
+                            </div>
+                            <div class="card-footer text-center">
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="fas fa-check"></i>Consultar Libro
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                </div>
+            
+                </section>
+    </body>
+</html>
